@@ -21,3 +21,21 @@ Content-Type: application/json
   "email": "daniel@example.com",
   "password": "123456"
 }
+
+###
+
+# @name create_question
+POST {{base_url}}/questions
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "title": "Dolor sit amet?",
+  "content": "Dolor sit amet, consectetur adipiscing elit."
+}
+
+###
+
+# @name fetch_recent_questions
+GET {{base_url}}/questions?page=1
+Authorization: Bearer {{access_token}}
