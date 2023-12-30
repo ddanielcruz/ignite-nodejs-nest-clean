@@ -12,6 +12,7 @@ import { z } from 'zod'
 import { AuthenticateStudentUseCase } from '@/domain/forum/application/use-cases/authenticate-student'
 import { InvalidCredentialsError } from '@/domain/forum/application/use-cases/errors/invalid-credentials-error'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe'
+import { Public } from '@/infra/auth/public.decorator'
 
 const bodySchema = z.object({
   email: z.string().email(),
@@ -20,6 +21,7 @@ const bodySchema = z.object({
 
 type RequestBody = z.infer<typeof bodySchema>
 
+@Public()
 @Controller('/sessions')
 export class CreateSessionController {
   constructor(
