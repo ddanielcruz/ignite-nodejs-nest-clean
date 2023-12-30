@@ -10,10 +10,8 @@ interface FetchRecentQuestionsUseCaseRequest {
 }
 
 type FetchRecentQuestionsUseCaseResponse = Either<
-  null,
-  {
-    questions: Question[]
-  }
+  never,
+  { questions: Question[] }
 >
 
 @Injectable()

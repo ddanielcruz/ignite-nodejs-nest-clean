@@ -27,12 +27,8 @@ export class FetchRecentQuestionsController {
   @Get()
   async handle(@Query('page', queryValidationPipe) page: PageQueryParam) {
     const result = await this.fetchRecentQuestions.execute({ page })
-    if (result.isLeft()) {
-      // TODO Handle error
-      throw result.value
-    }
-
     const questions = result.value.questions.map(QuestionPresenter.toHttp)
+
     return { questions }
   }
 }

@@ -31,16 +31,11 @@ export class CreateQuestionController {
   @UsePipes(new ZodValidationPipe(bodySchema, { type: 'body' }))
   async handle(@CurrentUser() user: UserPayload, @Body() body: RequestBody) {
     const { title, content } = body
-    const result = await this.createQuestion.execute({
+    await this.createQuestion.execute({
       authorId: user.sub,
       title,
       content,
       attachmentsIds: [],
     })
-
-    if (result.isLeft()) {
-      // TODO Handler error
-      throw result.value
-    }
   }
 }
