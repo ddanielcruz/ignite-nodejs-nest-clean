@@ -3,11 +3,9 @@ import { Test } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 
 import { AppModule } from '@/app.module'
-import { PrismaService } from '@/prisma/prisma.service'
 
 describe('Create session (E2E)', () => {
   let app: INestApplication
-  let prisma: PrismaService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -15,7 +13,6 @@ describe('Create session (E2E)', () => {
     }).compile()
 
     app = moduleRef.createNestApplication()
-    prisma = moduleRef.get(PrismaService)
 
     await app.init()
   })
