@@ -1,7 +1,8 @@
-@baseUrl = http://localhost:3333
+@base_url = http://localhost:3333
+@access_token = {{create_session.response.body.accessToken}}
 
 # @name create_account
-POST {{baseUrl}}/accounts
+POST {{base_url}}/accounts
 Content-Type: application/json
 
 {
@@ -12,8 +13,8 @@ Content-Type: application/json
 
 ###
 
-# @name authenticate
-POST {{baseUrl}}/sessions
+# @name create_session
+POST {{base_url}}/sessions
 Content-Type: application/json
 
 {
