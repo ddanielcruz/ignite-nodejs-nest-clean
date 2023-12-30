@@ -2,7 +2,7 @@ import request from 'supertest'
 import { Test } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 
-import { AppModule } from '@/app.module'
+import { AppModule } from '@/infra/app.module'
 
 describe('Create session (E2E)', () => {
   let app: INestApplication
