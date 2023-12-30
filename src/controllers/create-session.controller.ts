@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  HttpCode,
   Post,
   UnauthorizedException,
   UsePipes,
@@ -27,6 +28,7 @@ export class CreateSessionController {
   ) {}
 
   @Post()
+  @HttpCode(201)
   @UsePipes(new ZodValidationPipe(bodySchema))
   async handle(@Body() body: RequestBody) {
     const { email, password } = body

@@ -25,7 +25,7 @@ export class CreateAccountController {
   constructor(private readonly prisma: PrismaService) {}
 
   @Post()
-  @HttpCode(201)
+  @HttpCode(204)
   @UsePipes(new ZodValidationPipe(bodySchema))
   async handle(@Body() body: RequestBody) {
     const { name, email, password } = body
@@ -38,15 +38,12 @@ export class CreateAccountController {
     }
 
     const hashedPassword = await hash(password, 8)
-
-    const user = await this.prisma.user.create({
+    await this.prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
       },
     })
-
-    return { ...user, password: undefined }
   }
 }

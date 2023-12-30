@@ -5,7 +5,7 @@ import { INestApplication } from '@nestjs/common'
 import { AppModule } from '@/app.module'
 import { PrismaService } from '@/prisma/prisma.service'
 
-describe('Create account (E2E)', () => {
+describe('Create session (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
 
@@ -22,19 +22,24 @@ describe('Create account (E2E)', () => {
 
   afterAll(() => app.close())
 
-  test('[POST] /accounts', async () => {
+  test('[POST] /sessions', async () => {
     const email = 'john.doe@example.com'
     const password = '123456'
-    const response = await request(app.getHttpServer()).post('/accounts').send({
+
+    // Create user
+    await request(app.getHttpServer()).post('/accounts').send({
       name: 'John Doe',
       email,
       password,
     })
 
-    const user = await prisma.user.findUnique({ where: { email } })
+    // Create session
+    const response = await request(app.getHttpServer()).post('/sessions').send({
+      email,
+      password,
+    })
 
-    expect(response.status).toBe(204)
-    assert(user)
-    expect(user.password).not.toEqual(password)
+    expect(response.status).toBe(201)
+    expect(response.body).toMatchObject({ accessToken: expect.any(String) })
   })
 })
